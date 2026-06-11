@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="vi" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh toán vé xem phim (Demo)</title>
+
+    <!-- Bootstrap 5.3 Dark Mode -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../public/assets/css/app.css">
+</head>
+
+<body class="bg-dark text-light min-vh-100 d-flex flex-column">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-warning fs-3" href="index.html">
+                <i class="bi bi-film"></i> CinemaX
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Phim đang chiếu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#coming-soon">Phim sắp chiếu</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item">
+                        <span class="text-secondary me-3"><i class="bi bi-person-circle"></i> Xin chào, buidi</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light me-2" href="#my-tickets">
+                            <i class="bi bi-ticket-perforated"></i> Vé của tôi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="btn btn-sm btn-outline-danger ms-2">Đăng xuất</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-4 flex-grow-1">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+
+                <!-- Countdown Timer -->
+                <div class="alert alert-warning border-0 shadow-lg d-flex align-items-center mb-4 p-3" role="alert" style="background-color: #382c0f; color: #ffc107;">
+                    <i class="bi bi-clock-history me-3 fs-3 animate-pulse"></i>
+                    <div class="timer-container ms-auto">
+                        <span class="d-block small text-secondary me-2">Thời gian giữ ghế:</span>
+                        <strong id="countdown-timer" class="timer-value" data-remaining-seconds="600">10:00</strong>
+                    </div>
+                </div>
+
+                <!-- Booking Details -->
+                <div class="card bg-secondary border-0 shadow mb-4" style="background-color: #1a1a2e !important; border: 1px solid #2d2d44 !important;">
+                    <div class="card-header bg-black py-3">
+                        <h5 class="mb-0 fw-bold"><i class="bi bi-film me-2 text-warning"></i>Chi tiết đặt vé</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <h4 class="text-warning fw-bold mb-3">Dune: Part Two</h4>
+                        <div class="row g-2 mb-3">
+                            <div class="col-sm-6 text-secondary">
+                                <i class="bi bi-calendar3 me-2 text-light"></i>Ngày chiếu: <span class="text-light fw-semibold">11/06/2026</span>
+                            </div>
+                            <div class="col-sm-6 text-secondary">
+                                <i class="bi bi-clock me-2 text-light"></i>Suất chiếu: <span class="text-light fw-semibold">14:00</span>
+                            </div>
+                            <div class="col-sm-6 text-secondary">
+                                <i class="bi bi-door-open me-2 text-light"></i>Phòng chiếu: <span class="text-light fw-semibold">Phòng IMAX</span>
+                            </div>
+                            <div class="col-sm-6 text-secondary">
+                                <i class="bi bi-ticket me-2 text-light"></i>Số lượng: <span class="text-light fw-semibold" id="ticket-quantity-display">2 vé</span>
+                            </div>
+                        </div>
+                        <hr class="border-secondary">
+                        <div class="mb-0">
+                            <label class="text-secondary small fw-bold d-block mb-2">Ghế ngồi đã chọn:</label>
+                            <div id="seats-badges-container">
+                                <span class="badge bg-success fs-6 me-2 shadow-sm">E5</span>
+                                <span class="badge bg-success fs-6 me-2 shadow-sm">E6</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Voucher promo -->
+                <div class="card bg-secondary border-0 shadow mb-4" style="background-color: #1a1a2e !important; border: 1px solid #2d2d44 !important;">
+                    <div class="card-body p-4">
+                        <label class="form-label text-light fw-bold">Mã giảm giá (Voucher)</label>
+                        <div class="input-group">
+                            <input type="text" id="promo-input" class="form-control bg-dark text-light border-secondary py-2" placeholder="Thử nhập: GIAM50 hoặc KM10...">
+                            <button class="btn btn-warning fw-bold px-4" id="btn-apply-promo" type="button">
+                                Áp dụng
+                            </button>
+                        </div>
+                        <div id="promo-feedback" class="mt-2 small"></div>
+                    </div>
+                </div>
+
+                <!-- Total Summary -->
+                <div class="card bg-secondary border-0 shadow mb-4" style="background-color: #1a1a2e !important; border: 1px solid #2d2d44 !important;">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-secondary">Tạm tính:</span>
+                            <span class="fw-semibold text-light" id="subtotal-display">180.000₫</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2 text-success" id="discount-row" style="display:none !important">
+                            <span>Giảm giá:</span>
+                            <span class="fw-bold" id="discount-display">-0₫</span>
+                        </div>
+                        <hr class="border-secondary">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <strong class="text-light fs-5">TỔNG THANH TOÁN:</strong>
+                            <strong class="text-warning fs-3" id="total-display">180.000₫</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Form -->
+                <form action="success.html" id="payment-form">
+                    <input type="hidden" name="total_price" id="final-total" value="180000">
+                    <input type="hidden" name="promotion_code" id="final-promo" value="">
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-light mb-3">Phương thức thanh toán</label>
+                        <div class="d-grid gap-3">
+                            <div class="form-check bg-black rounded p-3 border border-secondary shadow-sm hover-border-warning">
+                                <input class="form-check-input ms-0 me-3" type="radio" name="payment_method" id="pay-vnpay" value="vnpay" required checked>
+                                <label class="form-check-label text-light w-100" for="pay-vnpay" style="cursor: pointer;">
+                                    <i class="bi bi-credit-card me-2 text-primary fs-5"></i>
+                                    <strong class="fs-6">VNPay</strong>
+                                    <small class="text-secondary d-block mt-1">Thẻ ATM nội địa, Internet Banking, Quét mã QR</small>
+                                </label>
+                            </div>
+                            
+                            <div class="form-check bg-black rounded p-3 border border-secondary shadow-sm hover-border-warning">
+                                <input class="form-check-input ms-0 me-3" type="radio" name="payment_method" id="pay-momo" value="momo">
+                                <label class="form-check-label text-light w-100" for="pay-momo" style="cursor: pointer;">
+                                    <i class="bi bi-phone me-2 text-danger fs-5"></i>
+                                    <strong class="fs-6">Ví điện tử MoMo</strong>
+                                    <small class="text-secondary d-block mt-1">Thanh toán nhanh qua ứng dụng MoMo</small>
+                                </label>
+                            </div>
+
+                            <div class="form-check bg-black rounded p-3 border border-secondary shadow-sm hover-border-warning">
+                                <input class="form-check-input ms-0 me-3" type="radio" name="payment_method" id="pay-cash" value="cash">
+                                <label class="form-check-label text-light w-100" for="pay-cash" style="cursor: pointer;">
+                                    <i class="bi bi-cash-coin me-2 text-success fs-5"></i>
+                                    <strong class="fs-6">Thanh toán tại quầy</strong>
+                                    <small class="text-secondary d-block mt-1">Hoàn thành giao dịch trực tiếp tại rạp</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-warning w-100 btn-lg fw-bold py-3 shadow mb-4" id="btn-pay-submit">
+                        <i class="bi bi-check-circle me-2"></i>XÁC NHẬN THANH TOÁN
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-secondary text-center py-3 mt-auto border-top border-secondary">
+        <small>&copy; 2026 CinemaX. All rights reserved.</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Load data from sessionStorage
+        const savedSeats = JSON.parse(sessionStorage.getItem('mock_selected_seats') || '["E5", "E6"]');
+        const savedTotal = parseFloat(sessionStorage.getItem('mock_total_price') || '180000');
+        const savedQty = parseInt(sessionStorage.getItem('mock_quantity') || '2');
+
+        // Update displays
+        document.getElementById('ticket-quantity-display').textContent = `${savedQty} vé`;
+        document.getElementById('subtotal-display').textContent = savedTotal.toLocaleString('vi-VN') + '₫';
+        document.getElementById('total-display').textContent = savedTotal.toLocaleString('vi-VN') + '₫';
+        document.getElementById('final-total').value = savedTotal;
+
+        const badgesContainer = document.getElementById('seats-badges-container');
+        badgesContainer.innerHTML = savedSeats.map(seat => `<span class="badge bg-success fs-6 me-2 shadow-sm">${seat}</span>`).join('');
+
+        // Timer countdown
+        const timer = document.getElementById('countdown-timer');
+        let timeLeft = 600;
+        const interval = setInterval(() => {
+            if (timeLeft <= 0) {
+                clearInterval(interval);
+                alert('Phiên giữ chỗ hết hạn!');
+                window.location.href = 'index.html';
+                return;
+            }
+            timeLeft--;
+            const m = Math.floor(timeLeft / 60);
+            const s = timeLeft % 60;
+            timer.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+            if (timeLeft <= 60) {
+                timer.classList.add('timer-urgent', 'text-danger');
+            }
+        }, 1000);
+
+        // Voucher logic
+        let subtotal = savedTotal;
+        const btnPromo = document.getElementById('btn-apply-promo');
+        if (btnPromo) {
+            btnPromo.addEventListener('click', () => {
+                const code = document.getElementById('promo-input').value.trim().toUpperCase();
+                const feedback = document.getElementById('promo-feedback');
+                
+                btnPromo.disabled = true;
+                btnPromo.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+                setTimeout(() => {
+                    btnPromo.disabled = false;
+                    btnPromo.textContent = 'Áp dụng';
+
+                    if (code === 'GIAM50') {
+                        const discount = subtotal * 0.5;
+                        const finalTotal = subtotal - discount;
+                        feedback.innerHTML = `<span class="text-success fw-bold">✓ Áp dụng thành công! Giảm 50% (-${discount.toLocaleString('vi-VN')}₫)</span>`;
+                        document.getElementById('discount-row').style.setProperty('display', 'flex', 'important');
+                        document.getElementById('discount-display').textContent = `-${discount.toLocaleString('vi-VN')}₫`;
+                        document.getElementById('total-display').textContent = finalTotal.toLocaleString('vi-VN') + '₫';
+                        document.getElementById('final-total').value = finalTotal;
+                        document.getElementById('final-promo').value = code;
+                    } else if (code === 'KM10') {
+                        const discount = subtotal * 0.1;
+                        const finalTotal = subtotal - discount;
+                        feedback.innerHTML = `<span class="text-success fw-bold">✓ Áp dụng thành công! Giảm 10% (-${discount.toLocaleString('vi-VN')}₫)</span>`;
+                        document.getElementById('discount-row').style.setProperty('display', 'flex', 'important');
+                        document.getElementById('discount-display').textContent = `-${discount.toLocaleString('vi-VN')}₫`;
+                        document.getElementById('total-display').textContent = finalTotal.toLocaleString('vi-VN') + '₫';
+                        document.getElementById('final-total').value = finalTotal;
+                        document.getElementById('final-promo').value = code;
+                    } else if (code === '') {
+                        feedback.innerHTML = '';
+                    } else {
+                        feedback.innerHTML = `<span class="text-danger">✗ Mã giảm giá "${code}" không tồn tại hoặc đã hết hạn.</span>`;
+                        document.getElementById('discount-row').style.setProperty('display', 'none', 'important');
+                        document.getElementById('total-display').textContent = subtotal.toLocaleString('vi-VN') + '₫';
+                        document.getElementById('final-total').value = subtotal;
+                        document.getElementById('final-promo').value = '';
+                    }
+                }, 500);
+            });
+        }
+
+        // Form Submit
+        const paymentForm = document.getElementById('payment-form');
+        if (paymentForm) {
+            paymentForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const btnSubmit = document.getElementById('btn-pay-submit');
+                btnSubmit.disabled = true;
+                btnSubmit.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang xử lý giao dịch...';
+                
+                // Generate random transaction ID
+                const txId = 'TXN-' + Math.floor(Math.random() * 900000 + 100000);
+                sessionStorage.setItem('mock_transaction_id', txId);
+
+                setTimeout(() => {
+                    window.location.href = 'success.html';
+                }, 1000);
+            });
+        }
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="vi" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sơ đồ ghế - Đặt vé (Demo)</title>
+
+    <!-- Bootstrap 5.3 Dark Mode -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../public/assets/css/app.css">
+</head>
+
+<body class="bg-dark text-light min-vh-100 d-flex flex-column">
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black border-bottom border-secondary">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-warning fs-3" href="index.html">
+                <i class="bi bi-film"></i> CinemaX
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Phim đang chiếu</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html#coming-soon">Phim sắp chiếu</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item">
+                        <span class="text-secondary me-3"><i class="bi bi-person-circle"></i> Xin chào, buidi</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light me-2" href="#my-tickets">
+                            <i class="bi bi-ticket-perforated"></i> Vé của tôi
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="btn btn-sm btn-outline-danger ms-2">Đăng xuất</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-4 flex-grow-1">
+        <div class="row g-4">
+            <!-- Cột trái: Sơ đồ ghế -->
+            <div class="col-lg-8">
+                <div class="card bg-secondary border-0 shadow-lg" style="background-color: #1a1a2e !important; border: 1px solid #2d2d44 !important;">
+                    <div class="card-header bg-black border-bottom border-secondary p-3">
+                        <h5 class="mb-1 text-warning fw-bold">
+                            <i class="bi bi-grid-3x3-gap me-2"></i>CHỌN GHẾ NGỒI
+                        </h5>
+                        <small class="text-secondary d-block mt-1">
+                            <strong>Dune: Part Two</strong> — Hôm nay lúc <strong>14:00</strong> | Phòng IMAX
+                        </small>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Legend -->
+                        <div class="seat-legend-bar d-flex gap-4 justify-content-center mb-4 flex-wrap">
+                            <div class="d-flex align-items-center gap-2">
+                                <div style="width:22px; height:22px; border:2px solid #198754; border-radius:4px;"></div>
+                                <small class="text-light">Trống</small>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <div style="width:22px; height:22px; background:#198754; border-radius:4px; box-shadow: 0 0 8px rgba(25,135,84,0.6);"></div>
+                                <small class="text-light">Đang chọn</small>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <div style="width:22px; height:22px; background:#ffc107; border-radius:4px; opacity:0.6;"></div>
+                                <small class="text-light">Đang giữ</small>
+                            </div>
+                            <div class="d-flex align-items-center gap-2">
+                                <div style="width:22px; height:22px; background:#dc3545; border-radius:4px; opacity:0.5;"></div>
+                                <small class="text-light">Đã bán</small>
+                            </div>
+                        </div>
+
+                        <!-- Screen -->
+                        <div class="text-center mb-5">
+                            <div class="cinema-screen"></div>
+                            <small class="cinema-screen-label">MÀN CHIẾU</small>
+                        </div>
+
+                        <!-- Seat map grid (A to J, 1 to 12) -->
+                        <div class="seat-map-container overflow-auto p-2 bg-black rounded shadow-lg border border-secondary text-center">
+                            <!-- Rows A to D (Standard) -->
+                            <div class="d-flex justify-content-center align-items-center gap-1 mb-2">
+                                <span class="text-secondary me-3 fw-bold" style="width: 24px; text-align: right; font-size: 0.85rem;">A</span>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="A1" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A1</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="A2" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A2</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="A3" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A3</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sold" disabled style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A4</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sold" disabled style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A5</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="A6" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A6</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="A7" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A7</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="A8" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A8</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="A9" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A9</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="A10" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A10</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="A11" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A11</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="A12" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">A12</button>
+                                <span class="text-secondary ms-3 fw-bold" style="width: 24px; text-align: left; font-size: 0.85rem;">A</span>
+                            </div>
+
+                            <div class="d-flex justify-content-center align-items-center gap-1 mb-2">
+                                <span class="text-secondary me-3 fw-bold" style="width: 24px; text-align: right; font-size: 0.85rem;">B</span>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="B1" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B1</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="B2" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B2</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-holding" disabled style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B3</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-holding" disabled style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B4</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="B5" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B5</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="B6" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B6</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="B7" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B7</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="B8" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B8</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="B9" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B9</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="B10" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B10</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="B11" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B11</button>
+                                <button type="button" class="btn btn-sm seat-btn btn-outline-success" data-seat="B12" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">B12</button>
+                                <span class="text-secondary ms-3 fw-bold" style="width: 24px; text-align: left; font-size: 0.85rem;">B</span>
+                            </div>
+
+                            <!-- VIP Rows E to I -->
+                            <div class="d-flex justify-content-center align-items-center gap-1 mb-2">
+                                <span class="text-secondary me-3 fw-bold" style="width: 24px; text-align: right; font-size: 0.85rem;">E</span>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E1" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E1</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E2" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E2</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E3" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E3</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E4" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E4</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E5" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E5</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E6" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E6</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E7" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E7</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E8" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E8</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E9" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E9</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E10" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E10</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E11" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E11</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="E12" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">E12</button>
+                                <span class="text-secondary ms-3 fw-bold" style="width: 24px; text-align: left; font-size: 0.85rem;">E</span>
+                            </div>
+
+                            <div class="d-flex justify-content-center align-items-center gap-1 mb-2">
+                                <span class="text-secondary me-3 fw-bold" style="width: 24px; text-align: right; font-size: 0.85rem;">F</span>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F1" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F1</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F2" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F2</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F3" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F3</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F4" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F4</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F5" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F5</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F6" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F6</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F7" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F7</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F8" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F8</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F9" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F9</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F10" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F10</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F11" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F11</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-vip" data-seat="F12" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">F12</button>
+                                <span class="text-secondary ms-3 fw-bold" style="width: 24px; text-align: left; font-size: 0.85rem;">F</span>
+                            </div>
+
+                            <!-- Row J (Sweetbox) -->
+                            <div class="d-flex justify-content-center align-items-center gap-1 mb-2">
+                                <span class="text-secondary me-3 fw-bold" style="width: 24px; text-align: right; font-size: 0.85rem;">J</span>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J1" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J1</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J2" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J2</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J3" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J3</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J4" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J4</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J5" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J5</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J6" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J6</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J7" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J7</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J8" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J8</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J9" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J9</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J10" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J10</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J11" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J11</button>
+                                <button type="button" class="btn btn-sm seat-btn seat-sweetbox" data-seat="J12" style="width: 38px; height: 38px; padding: 0; font-size: 0.75rem;">J12</button>
+                                <span class="text-secondary ms-3 fw-bold" style="width: 24px; text-align: left; font-size: 0.85rem;">J</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cột phải: Thông tin đặt vé -->
+            <div class="col-lg-4">
+                <div class="card bg-secondary border-0 shadow-lg sticky-top" style="top: 20px; background-color: #1a1a2e !important; border: 1px solid #2d2d44 !important;">
+                    <div class="card-header bg-black border-bottom border-secondary p-3">
+                        <h5 class="mb-0 fw-bold"><i class="bi bi-receipt me-2 text-warning"></i>THÔNG TIN ĐẶT VÉ</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <!-- Selected Seats -->
+                        <div class="mb-4">
+                            <label class="text-secondary small fw-bold">Ghế đã chọn:</label>
+                            <div id="selected-seats-display" class="mt-2 p-2 bg-dark rounded min-vh-10 d-flex flex-wrap gap-1 align-items-center" style="min-height: 48px; border: 1px dashed #444;">
+                                <span class="text-secondary fst-italic">Chưa chọn ghế</span>
+                            </div>
+                        </div>
+
+                        <!-- Price Info -->
+                        <div class="d-flex justify-content-between mb-3 border-bottom border-secondary pb-2">
+                            <span class="text-secondary">Đơn giá:</span>
+                            <span class="text-warning fw-bold" data-price-per-seat="90000">
+                                90.000₫ / ghế
+                            </span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-3 border-bottom border-secondary pb-2">
+                            <span class="text-secondary">Số lượng:</span>
+                            <span id="seat-count" class="text-light fw-bold">0</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="text-light fw-bold fs-5">TỔNG CỘNG:</span>
+                            <span id="total-price" class="text-warning fw-bold fs-4">0₫</span>
+                        </div>
+
+                        <!-- Mock Form -->
+                        <form id="booking-form" method="POST" action="payment.html">
+                            <input type="hidden" name="showtime_id" value="1">
+                            <input type="hidden" name="_csrf_token" value="mock_token">
+                            <button type="submit" id="btn-hold" class="btn btn-warning w-100 btn-lg fw-bold py-3 shadow" disabled>
+                                <i class="bi bi-lock me-2"></i>GIỮ GHẾ (10 PHÚT)
+                            </button>
+                        </form>
+
+                        <p class="text-secondary small text-center mt-3 mb-0">
+                            <i class="bi bi-shield-check text-success me-1"></i>
+                            Ghế được khóa giữ chỗ trong 10 phút sau khi xác nhận
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Sticky Mobile Bar -->
+    <div class="sticky-checkout" id="sticky-checkout">
+        <div class="checkout-info">
+            <div>
+                <span class="text-secondary small" id="sticky-seat-info">Chưa chọn ghế</span>
+                <span class="total-price d-block" id="sticky-total-price">0₫</span>
+            </div>
+            <button class="btn btn-warning fw-bold px-4" id="sticky-btn-hold" disabled
+                    onclick="document.getElementById('booking-form').dispatchEvent(new Event('submit'));">
+                <i class="bi bi-lock me-2"></i>Giữ Ghế
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-black text-secondary text-center py-3 mt-auto border-top border-secondary">
+        <small>&copy; 2026 CinemaX. All rights reserved.</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/assets/js/seat_selector.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Override form submit to save selections locally and redirect
+        const form = document.getElementById('booking-form');
+        if (form) {
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const selectedSeats = Array.from(document.querySelectorAll('.seat-btn.selected')).map(el => el.textContent.trim());
+                if (selectedSeats.length === 0) return;
+                
+                // Save selection in session storage
+                const total = selectedSeats.length * 90000;
+                sessionStorage.setItem('mock_selected_seats', JSON.stringify(selectedSeats));
+                sessionStorage.setItem('mock_total_price', total);
+                sessionStorage.setItem('mock_quantity', selectedSeats.length);
+                
+                // Show mock loading state
+                const btnHold = document.getElementById('btn-hold');
+                const stickyBtnHold = document.getElementById('sticky-btn-hold');
+                if (btnHold) {
+                    btnHold.disabled = true;
+                    btnHold.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Đang giữ ghế...';
+                }
+                if (stickyBtnHold) {
+                    stickyBtnHold.disabled = true;
+                }
+                
+                // Redirect after a short delay to simulate network latency
+                setTimeout(() => {
+                    window.location.href = 'payment.html';
+                }, 800);
+            });
+        }
+    });
+    </script>
+</body>
+</html>

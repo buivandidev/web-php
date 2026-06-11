@@ -1,0 +1,13 @@
+{
+    "name": "buidi/cinemax",
+    "description": "CinemaX - Custom MVC PHP Ticket Booking System",
+    "type": "project",
+    "require": {
+        "php": ">=8.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    }
+}
