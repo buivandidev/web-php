@@ -25,7 +25,7 @@ fi
 # Run migrations if migrations/run.php exists
 if [ -f "migrations/run.php" ]; then
   echo "Running migrations..."
-  php migrations/run.php
+  php migrations/run.php || true
 fi
 
 # Execute main CMD
