@@ -41,7 +41,8 @@ try {
         '005_create_tickets.sql',
         '006_create_promotions.sql',
         '007_seed_admin_user.sql',
-        '008_seed_rooms.sql'
+        '008_seed_rooms.sql',
+        '009_seed_data.sql'
     ];
 
     foreach ($files as $file) {
